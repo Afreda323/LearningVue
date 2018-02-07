@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Assignment 4</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="exercise">
+    <!-- 1) Start the Effect with the Button. 
+      The Effect should alternate the "highlight" or "shrink" 
+      class on each new setInterval tick (attach respective class 
+      to the div with id "effect" below) -->
+    <div>
+      <button @click="startEffect">Start Effect</button>
+      <div id="effect" :class="effect"></div>
+    </div>
+    <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+    <div :class="[red, border]">I got no class :(</div>
+    <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+    <div>
+      <input type="text" v-model="className">
+      <div :class="className"></div>
+    </div>
+    <!-- 4) Create a simple progress bar with setInterval and style bindings.
+       Start it by hitting the below button. -->
+    <div>
+      <button @click="startProgress">Start Progress</button>
+      <div style="height: 10px; background-color: blue;" :style="width"></div>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: '#exercise',
+      data: {
+        border: 'border',
+        red: 'red',
+        className: 'border',
+        effect: 'shrink',
+        progress: 0
+      },
+      computed: {
+        width() {
+          return {
+            width: this.progress + '%'
+          }
+        }
+      },
+      methods: {
+        startEffect() {
+          setInterval(() => {
+            if (this.effect === 'highlight') {
+              this.effect = 'shrink'
+            } else {
+              this.effect = 'highlight'
+            }
+          }, 1000)
+        },
+        startProgress() {
+          setInterval(() => {
+            this.progress++
+          }, 100)
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
